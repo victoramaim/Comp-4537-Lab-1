@@ -1,37 +1,43 @@
-class Card {
+// Class representing a note
+class Note {
     constructor(text, id) {
         this.text = text;
         this.id = id;
     }
 }
 
-class CardGroup {
+// Class representing a group of notes
+class NoteGroup {
     constructor() {
-        this.list = [];
+        this.list = []; // list of notes
     }
 
-    remove(card) {
-        // Credit: 
-        // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array-in-javascript
-        let index = this.list.indexOf(card);
+    // Delete a note from the list
+    delete(note) {
+        let index = this.list.indexOf(note);
         if (index > -1) {
             this.list.splice(index, 1);
         }
 
-        localStorage.setItem('cards', JSON.stringify(this.list));
+        // Update local storage and redraw
+        localStorage.setItem('notes', JSON.stringify(this.list));
         draw();
     }
 
-    add(card) {
-        this.list.push(card);
+    // Add a note to the list
+    add(note) {
+        this.list.push(note);
+        // Redraw
         draw();
     }
 
-    update(card) {
-        let textarea = document.getElementById(`textarea-${card.id}`);
-        card.text = textarea.value;
+    // Update a note in the list
+    update(note) {
+        let textarea = document.getElementById(`textarea-${note.id}`); // Get the textarea element corresponding to the note
+        note.text = textarea.value; // Update the note's text property with the content of the textarea
 
-        if (card.text != messages.EMPTY) {
+        // Add an event listener to the textarea for continuous auto-saving
+        if (note.text != messages.EMPTY) {
             textarea.addEventListener("input", () => {
                 localStorage.setItem(`${components.NOTES}`, JSON.stringify(this.list));
                 last_saved();
@@ -40,8 +46,8 @@ class CardGroup {
     }
 }
 
-// Credit: Mark Walters
-// https://stackoverflow.com/questions/10211145/getting-current-date-and-time-in-javascript
+// Chatgpt was used as a reference for this function
+// Function to display the last saved time
 function last_saved() {
     let time = document.getElementById(components.TIME);
     let currentdate = new Date();
@@ -52,12 +58,14 @@ function last_saved() {
     time.innerHTML = datetime;
 }
 
+// Initialize the application
 function init() {
-    cardgroup = new CardGroup();
-    let storedCards = JSON.parse(localStorage.getItem(`${components.NOTES}`)) || [];
-    cardgroup.list = storedCards;
+    notegroup = new NoteGroup(); // Create a new note group
+    // Retrieve stored notes from localStorage or initialize an empty array
+    let storedNotes = JSON.parse(localStorage.getItem(`${components.NOTES}`)) || []; 
+    notegroup.list = storedNotes; // Assign the stored notes to the note group
 
-    last_saved();
+    last_saved(); // Display the last saved time
     
-    draw();
+    draw(); // Draw the notes
 }

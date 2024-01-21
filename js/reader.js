@@ -1,41 +1,37 @@
-// DOM elements
 document.addEventListener('DOMContentLoaded', function () {
-    let noteContainer = document.createElement(components.DIV);
-    noteContainer.id = components.NOTECONTAINER;
-    document.body.appendChild(noteContainer);
+    let cardContainer = document.createElement(components.DIV);
+    cardContainer.id = components.NOTECONTAINER;
+    document.body.appendChild(cardContainer);
 
     let time = document.createElement(components.H6);
     time.id = 'time';
     document.body.appendChild(time);
 
-    // Button to return to home page
-    let home_button = document.createElement(components.BUTTON);
-    home_button.textContent = messages.HOME;
-    home_button.addEventListener('click', () => window.location.href = '/index.html');
-    document.body.appendChild(home_button);
+    let return_button = document.createElement(components.BUTTON);
+    return_button.textContent = messages.RETURN;
+    return_button.addEventListener('click', () => window.location.href = '/index.html');
+    document.body.appendChild(return_button);
 
-    // Initialize
     init();
-    setInterval(()=> int(), 2000); // update every 2 seconds
+    setInterval(() => init(), 2000);
 });
 
-// Draw the current state of the card group
 function draw() {
-    let noteContainer = document.getElementById(`${components.NOTECONTAINER}`);
-    noteContainer.innerHTML = messages.EMPTY;
+    let cardContainer = document.getElementById(`${components.NOTECONTAINER}`);
+    cardContainer.innerHTML = messages.EMPTY;
 
     // for each was chatgpt's idea
-    notegroup.list.forEach(note => {
-        let noteEl = document.createElement(components.DIV);
-        noteEl.classList.add(`${components.NOTE}-read`);
+    cardgroup.list.forEach(card => {
+        let card_el = document.createElement(components.DIV);
+        card_el.classList.add(`${components.NOTE}-read`);
 
-        let textArea = document.createElement('p');
-        textArea.value = note.text;
-        textArea.id = `textarea-${card.id}`; // appending card id to each textarea was chatgpts idea
-        noteEl.appendChild(textArea);
+        let textarea = document.createElement('p');
+        textarea.innerHTML = card.text;
+        textarea.id = `textarea-${card.id}`; // appending card id to each textarea was chatgpts idea
+        card_el.appendChild(textarea);
 
-        noteContainer.appendChild(noteEl);
+        cardContainer.appendChild(card_el);
 
-        textArea.addEventListener("input", () => notegroup.update(note));
+        textarea.addEventListener("input", () => cardgroup.update(card));
     });
 }

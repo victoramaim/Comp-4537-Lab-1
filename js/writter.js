@@ -4,7 +4,7 @@ function draw() {
     let noteContainer = document.getElementById(`${components.NOTECONTAINER}`);
     noteContainer.innerHTML = messages.EMPTY;
 
-    // for each was chatgpt's idea
+    // Chatgpt was used as a reference for this for each loop
     notegroup.list.forEach(note => {
         let noteEl = document.createElement(components.DIV);
         noteEl.classList.add(components.NOTE);

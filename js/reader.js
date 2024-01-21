@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize
     init();
-    setInterval(init, 2000); // update every 2 seconds
+    setInterval(()=> int(), 2000); // update every 2 seconds
 });
 
 // Draw the current state of the card group
@@ -29,7 +29,7 @@ function draw() {
         let noteEl = document.createElement(components.DIV);
         noteEl.classList.add(`${components.NOTE}-read`);
 
-        let textArea = document.createElement('textarea');
+        let textArea = document.createElement('p');
         textArea.value = note.text;
         textArea.id = `textarea-${card.id}`; // appending card id to each textarea was chatgpts idea
         noteEl.appendChild(textArea);

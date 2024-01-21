@@ -9,7 +9,7 @@ function draw() {
         let noteEl = document.createElement(components.DIV);
         noteEl.classList.add(components.NOTE);
 
-        let textarea = document.createElement(components.TEXTAREA);
+        let textarea = document.createElement('textarea');
         textarea.value = note.text;
         textarea.id = `textarea-${note.id}`; // appending card id to each textarea was chatgpts idea
         noteEl.appendChild(textarea);
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(noteContainer);
 
     let time = document.createElement(components.H6);
-    time.id = components.TIME;
+    time.id = 'time';
     document.body.appendChild(time);
 
     let add_button = document.createElement(components.BUTTON);

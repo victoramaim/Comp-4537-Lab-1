@@ -20,7 +20,7 @@ class NoteGroup {
             this.list.splice(index, 1);
         }
 
-        localStorage.setItem(`${components.NOTES}`, JSON.stringify(this.list));
+        localStorage.setItem('notes', JSON.stringify(this.list));
         draw();
     }
 
